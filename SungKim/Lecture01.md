@@ -44,46 +44,42 @@
 2. Data Flow Graph
   - nodes in the graph represent mathematical operations
   - edges represent the multidimensional data arrays(tensors) communicated between them
-3. Check Installation and Version
+3. Check Installation and Version  
   python3  
   import tensorflow as tf  
   tf._ _ version _ _
-4. Tensorflow - Hello World!
+4. Tensorflow - Hello World!  
   // This op is added as a node to the default graph  
   hello = tf.constant("Hello, TensorFlow!")  
   // seart a TF session  
   sess = tf.Session()  
   // run the op and get result  
   print(sess.run(hello))  
-
   result:  
-  b'Hello, TensorFlow!' (b'String'에서 b는 bytes literals을 의미)
-5. Computational Graph
+  b'Hello, TensorFlow!' (b'String'에서 b는 bytes literals을 의미)  
+5. Computational Graph  
   *1) build graph(tensors)*  
   node1 = tf.constant(3.0, tf.float32)  
   node2 = tf.constant(4.0)  // also tf.float32 implicitly  
   node3 = tf.add(node1, node2) // node3 = node1 + node2  
   print("node1: ", node1, "node2: ", node2)  
   print("node3: ", node3)  
-
   result:  
   node1: Tensor 어쩌구 node2: Tensor 어쩌구 node3: Tensor 어쩌구(원하는 결과값이 나오지 않고 '해당 노드는 Tensor이다' 라는 내용으로 결과값이 나옴)  
-
   *2) feed data and run graph(operation)*  
   sess = tf.Session()  
   print("sess.run(node1, node2): ", sess.run([node1, node2]))  
   print("sess.run(node3): ", sess.run(node3))  
-
   *3) update variables*  
   result:  
   sess.run(node1, node2): [3.0, 4.0]  
-  sess.run(node3): 7.0
+  sess.run(node3): 7.0  
 6. Tensorflow Mechanics
   1) build graph using tensorflow operations  
     node를 지정할 때 placeholder로 만들 수 있다  
   2) feed data and run graph(operation) -> sess.run(op)  
     sess.run(op, feed_dict = {x:x_data})  // placeholder로 넘겨줌  
-  3) update variables in the graph(and return values)
+  3) update variables in the graph(and return values)  
 7. Placeholder
   - 실행시키는 단계에서 값들을 던져주고싶다
   - node를 placeholder라는 특별한 노드로 만들어줌  
@@ -93,10 +89,9 @@
   adder_node = a+b // + provides a shortcut for tf.add(a,b)  
   print(sess.run(adder_node, feed_dict = {a:3, b:4.5})) // 값을 가지고 그래프를 실행시켜라  
   print(sess.run(adder_node, feed_dict = {a:[1,3], b:[2,4]})) // n개의 값을 넘겨줄 수 있음  
-
   result:  
   7.5  
-  [3. 7.] // a+b니까 1+2=3, 3+4=7이 됨
+  [3. 7.] // a+b니까 1+2=3, 3+4=7이 됨  
 8. Everything is **Tensor**
   - ranks, shapes, and types
   - ranks
