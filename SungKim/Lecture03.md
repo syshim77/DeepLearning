@@ -12,7 +12,7 @@
   - W=0, cost(W)=? -> 1/3{(0*1-1)2+(0*2-2)2+(0*3-3)2} = 약 4.67
   - W=2, cost(W)=? -> 약 4.67
   - 값을 구해서 함수를 그려보면 2차 방정식 형태가 됨
-3. How to minimize cost?
+4. How to minimize cost?
   - gradient descent algorithm(경사를 따라 내려가는 알고리즘)
     + minimize cost function
     + gradient descent is used many minimization problems
@@ -22,7 +22,7 @@
     + 산 위에서 내려갈 때 경사가 있는 쪽으로 발을 딛어서 내려가게 됨 = gradient descent algorithm
     + 해당 위치에서 경사도를 보고 경사도를 따라서 한발짝 움직임
     + 경사도가 0인 위치에 도달하면 그 자리에 머물게 됨
-4. How it works?
+5. How it works?
   - start with initial guesses
     + start at 0,0(or any other value)
     + keeping changing W and b a little bit to try and reduce cost(W,b)
@@ -33,12 +33,12 @@
     + where you start can determine which minimum you end up
     + 가끔 예외가 있지만 어떤 점에서 시작을 하던간에 항상 최저점에 도달할 수 있다
   - 경사도는 미분을 이용
-5. Formal Definition
+6. Formal Definition
   - cost(W) 식에서 1/m -> 1/2m으로 바꾸어서 미분하는 것이 계산하기 편함
   - W := W - α*(cost(W) 미분한 것)(α: learning 예시)
   - **W := W - α*1/mΣ(Wx(i)-y(i))**
   - 위 수식을 기계적으로 적용만 시키면 바로 cost function을 최소화하는 W를 찾게 되고, 학습을 통해 모델을 만든다고 할 수 있음
-6. Convex Function
+7. Convex Function
   - 밥그릇 형태의 그래프
   - cost, W, b로 만든 3차원 그래프가 이 형태로 나타나면 항상 답을 찾는다는 것이 보장됨
   - 따라서, 반드시 cost function의 모양이 convex function이 되는지 확인해야함
