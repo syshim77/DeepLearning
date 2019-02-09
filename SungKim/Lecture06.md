@@ -79,11 +79,11 @@
   - tf.one_hot and reshape
     + if the input indices is rank N, the output will have rank N+1
     + the new axis is created at dimension axis(default: the new axis is appended at the end)  
-  Y = tf.placeholder(tf.int32, [None,1])  // 0~6, shape=(?,1)  
+  Y = tf.placeholder(tf.int32, [None,1])  // 0 ~ 6, shape=(?,1)  
   Y_one_hot = **tf.one_hot**(Y, nb_classes)  // one_hot shape=(?,1,7), tf.one_hot: One-hot으로 바꾸기 위해 사용하는 함수  
   **Y_one_hot = tf.reshape(Y_one_hot, [-1,nb_classes])**  // shape=(?,7), -1: everything  
   // 예측한 값이 맞는지 틀린지 확인하는 부분  
-  prediction = tf.argmax(hypothesis, 1) // probabilities를 0~6 값 중 하나로 만들어내는 것  
+  prediction = tf.argmax(hypothesis, 1) // probabilities를 0 ~ 6 값 중 하나로 만들어내는 것  
   correct_prediction = tf.equal(prediction, tf.argmax(Y_one_hot, 1))  // Y 그 자체(one_hot으로 만들기 전)와 prediction이 맞는지  
   accuracy = tf.reduce_mean(tf.cast(correct_prediction, tf.float32))  
   // zip: 묶는 것, flatten: [[1], [0]] -> [1,0]  
