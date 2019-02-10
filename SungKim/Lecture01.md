@@ -64,7 +64,7 @@
   b'Hello, TensorFlow!' (b'String'에서 b는 bytes literals을 의미)
   ```
 5. Computational Graph  
-  *1) build graph(tensors)*
+  - 1) build graph(tensors)
   ```python
   node1 = tf.constant(3.0, tf.float32)
   node2 = tf.constant(4.0)  # also tf.float32 implicitly
@@ -76,13 +76,13 @@
   result:
   node1: Tensor 어쩌구 node2: Tensor 어쩌구 node3: Tensor 어쩌구 (원하는 결과값이 나오지 않고 '해당 노드는 Tensor이다' 라는 내용으로 결과값이 나옴)
   ```
-  *2) feed data and run graph(operation)*
+  - 2) feed data and run graph(operation)
   ```python
   sess = tf.Session()
   print("sess.run(node1, node2): ", sess.run([node1, node2]))
   print("sess.run(node3): ", sess.run(node3))
   ```
-  *3) update variables*
+  - 3) update variables
   ```
   result:
   sess.run(node1, node2): [3.0, 4.0]
