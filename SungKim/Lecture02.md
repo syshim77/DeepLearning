@@ -35,46 +35,55 @@
   - H: 예측 값, y: 실제 값
   - W, b가 달라질수록 cost가 커질수도 있고 작아질수도 있음
   - 학습을 한다 = cost minimize
-2. Tensorflow Mechanics  
-  1) Build graph using Tensorflow operations  
-  // x and y data  
-  x_train = [1,2,3]  
-  y_train = [1,2,3]  
-  // Variable: Tensorflow가 사용하는 variable(자체적으로 변경시키는 값, trainable variable, 학습하는 과정에서 자기가 변경시킨다)  
-  W = tf.Variable(tf.random_normal([1]), name = 'weight')  
-  b= tf.Variable(tf.random_normal([1]), name='bias')  
-  // our hypothesis (Wx+b)  
-  **hypothesis = x_train*W + b**  
-  // cost/loss function  
-  cost = tf.reduce_mean(tf.square(hypothesis - y_train)) // reduce_mean: 값을 평균내주는 것    
-  // minimize using GradientDescent  
-  **optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)  
-  train = optimizer.minimize(cost)**  // train: node name(cost가 연결되어 있음)  
-  2) feed data and run graph(operation) -> sess.run(op, feed_dict={x: x_data})  
-  3) run/update graph and get results  
-  // launch the graph in a session  
-  sess = tf.Session()  
-  // initializes global variables in the graph  
-  **sess.run(tf.global_variables_initializer())**  
-  // fit the line  
-  for step in range(2001):  
-    sess.run(train) // train을 실행시키게 되면 연결된 것들을 모두 실행시키게 되어 W, b까지 실행 시키게 됨  
-    if step % 20 == 0  
-      print(step, sess.run(cost), sess.run(W), sess.run(b))  
+2. Tensorflow Mechanics
+  - 1) Build graph using Tensorflow operations
+  ```python
+  # x and y data
+  x_train = [1,2,3]
+  y_train = [1,2,3]
+  # Variable: Tensorflow가 사용하는 variable(자체적으로 변경시키는 값, trainable variable, 학습하는 과정에서 자기가 변경시킨다)  
+  W = tf.Variable(tf.random_normal([1]), name='weight')
+  b = tf.Variable(tf.random_normal([1]), name='bias')
+  # our hypothesis (Wx+b)
+  hypothesis = x_train*W + b
+  # cost/loss function
+  cost = tf.reduce_mean(tf.square(hypothesis - y_train)) # reduce_mean: 값을 평균내주는 것
+  # minimize using GradientDescent
+  optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.01)
+  train = optimizer.minimize(cost)  # train: node name(cost가 연결되어 있음)
+  ```
+  - 2) feed data and run graph(operation) -> sess.run(op, feed_dict={x: x_data})
+  - 3) run/update graph and get results
+  ```python
+  # launch the graph in a session
+  sess = tf.Session()
+  # initializes global variables in the graph
+  sess.run(tf.global_variables_initializer())
+
+  # fit the line
+  for step in range(2001):
+    sess.run(train) # train을 실행시키게 되면 연결된 것들을 모두 실행시키게 되어 W, b까지 실행 시키게 됨
+
+    if step % 20 == 0
+      print(step, sess.run(cost), sess.run(W), sess.run(b))
+  ```
   - 실행 결과: W = 1, b = 0 에 수렴하게 됨
   - 실행을 많이 할수록 cost 값이 작아짐
-3. Placeholders(지정해두고 필요할 때 값을 던져줌)  
-  // placeholders for a tensor that will be always fed using feed_dict  
-  // see code from [here](http://stackoverflow.com/questions/36693740)  
-  // x_train, y_train 대신 사용  
-  x = tf.placeholder(tf.float32)  // or (tf.float32, shape=[None])  
-  y = tf.placeholder(tf.float32)  // or (tf.float32, shape=[None])  
-  // fit the line  
-  for step in range(2001):  
-    cost_val, W_val, b_val, _ = \
-    sess.run([cost, W, b, train], feed_dict={x: [1,2,3], y: [1,2,3]})  
-    if step % 20 == 0:  
-      print(step, cost_val, W_val, b_val)  
+3. Placeholders(지정해두고 필요할 때 값을 던져줌)
+  ```python
+  # placeholders for a tensor that will be always fed using feed_dict
+  # see code from http://stackoverflow.com/questions/36693740
+  # x_train, y_train 대신 사용
+  x = tf.placeholder(tf.float32)  # or (tf.float32, shape=[None])
+  y = tf.placeholder(tf.float32)  # or (tf.float32, shape=[None])
+
+  # fit the line
+  for step in range(2001):
+    cost_val, W_val, b_val, _ = sess.run([cost, W, b, train], feed_dict={x: [1,2,3], y: [1,2,3]})
+
+    if step % 20 == 0:
+      print(step, cost_val, W_val, b_val)
+  ```
   - placeholder를 사용하는 가장 큰 이유: 만들어진 모델에 대해서 값을 따로 넘겨줄 수 있음
   - linear model을 만들어둔 다음에 학습 데이터를 나중에 줄 수 있음
   - 시간이 지날수록 cost는 작은 값으로 수렴하고 W = 1, b = 1.1에 수렴

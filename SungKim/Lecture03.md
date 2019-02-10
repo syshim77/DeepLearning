@@ -50,26 +50,30 @@
   **cost = tf.reduce_mean(tf.float32)**  
 2. Gradient Descent
   - 미분 = 한 점에서의 기울기
-  - 기울기를 보고 +면 W가 -값이 나와서 더 작은 값(-방향)으로 이동, -면 W가 +값이 나와서 더 큰 값(+방향)으로 이동  
-  // 수식을 수기로 Tensorflow에 적은 코드  
-  // minimize: Gradient Descent using derivative:  
-  W -= learning_rate * derivative  
-  learning_rate = 0.1  
-  gradient = tf.reduce_mean((Wx - y) * x)  
-  descent = W - (learning_rate * gradient)  
-  // update를 실행시키게 되면 일련의 과정들이 행해지게 됨  
-  **update = W.assign(descent)**  // W := 하는 과정, W 값이 바뀌게 됨  
-  // optimizer를 설정해두면 미분하지 않아도 알아서 함  
-  // minimize: gradient descent magic  
-  **optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)**  
-  train = optimizer.minimize(cost)  
+  - 기울기를 보고 +면 W가 -값이 나와서 더 작은 값(-방향)으로 이동, -면 W가 +값이 나와서 더 큰 값(+방향)으로 이동
+  ```python
+  # 수식을 수기로 Tensorflow에 적은 코드
+  # minimize: Gradient Descent using derivative:
+  W -= learning_rate * derivative
+  learning_rate = 0.1
+  gradient = tf.reduce_mean((Wx - y) * x)
+  descent = W - (learning_rate * gradient)
+  # update를 실행시키게 되면 일련의 과정들이 행해지게 됨
+  update = W.assign(descent)  # W := W - α*1/mΣ(Wx(i)-y(i)) 계산하는 과정, W 값이 바뀌게 됨
+  # optimizer를 설정해두면 미분하지 않아도 알아서 함
+  # minimize: gradient descent magic
+  optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)
+  train = optimizer.minimize(cost)
+  ```
 3. Optional: compute_gradient and apply_gradient
   - 어떻게 하는건지 좀 더 이해하고 싶거나 graident를 좀 수정해서 임의로 저장하고 싶을 때(값을 더하던지 빼던지) 사용
-  - 아래 코드에서 손으로 계산한거랑 컴퓨터가 계산한 값이 거의 같음  
-  // 손으로 계산한 gradient랑 컴퓨터 gradient 결과가 같은지 확인  
-  gradient = tf.reduce_mean((W*x-y)* x)* 2  // 수기로 계산한 gradient  
-  optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)  
-  // get gradients  
-  gvs = optimizer.comppute_gradients(cost)  
-  // apply gradients  
-  apply_gradients = optimizer.apply_gradients(gvs)  // 이 예제에서는 minimize랑 똑같은 결과, 필요하면 여기에서 수정할 수 있음  
+  - 아래 코드에서 손으로 계산한거랑 컴퓨터가 계산한 값이 거의 같음
+  ```python
+  # 손으로 계산한 gradient랑 컴퓨터 gradient 결과가 같은지 확인
+  gradient = tf.reduce_mean((W*x-y) * x) * 2  # 수기로 계산한 gradient
+  optimizer = tf.train.GradientDescentOptimizer(learning_rate=0.1)
+  # get gradients
+  gvs = optimizer.comppute_gradients(cost)
+  # apply gradients
+  apply_gradients = optimizer.apply_gradients(gvs)  # 이 예제에서는 minimize랑 똑같은 결과, 필요하면 여기에서 수정할 수 있음
+  ```

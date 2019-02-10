@@ -74,27 +74,31 @@
     + **c(H(x),y) = -ylog(H(x)) - (1-y)log(1-H(x))**
     + y=1: c = -log(H(x)), y=0: c = -log(1-H(x)) 이므로 앞선 식과 같음
 11. Minimize cost - gradient descent algorithm
-  - cost(W) = -1/mΣ(ylog(H(x))+(1-y)log(1-H(x)))  
-  // cost function  
-  cost = tf.reduce_mean(-tf.reduce_sum(Y*tf.log(hypothesis)+(1-Y) * tf.log(1-hypothesis)))  
-  // minimize  
-  // 이 부분은 이미 만들어져있는 GradientDescentOptimizer 라는게 있기 때문에 이걸 사용해서 그대로 하면 됨  
-  a = tf.Variable(0.1)  // learning rate, alpha  
-  optimizer = tf.train.GradientDescentOptimizer(a)  
-  train = optimizer.minimize(cost)  
+  - cost(W) = -1/mΣ(ylog(H(x))+(1-y)log(1-H(x)))
+  ```python
+  # cost function
+  cost = tf.reduce_mean(-tf.reduce_sum(Y*tf.log(hypothesis) + (1-Y)*tf.log(1-hypothesis)))
+  # minimize
+  # 이 부분은 이미 만들어져있는 GradientDescentOptimizer 라는게 있기 때문에 이걸 사용해서 그대로 하면 됨
+  a = tf.Variable(0.1)  # learning rate, alpha
+  optimizer = tf.train.GradientDescentOptimizer(a)
+  train = optimizer.minimize(cost)
+  ```
 
 ###### Laboratory
 1. Logistic regression
   - H(X) = 1/(1+e^-WX)
   - cost(W) = -1/mΣ(ylog(H(x))+(1-y)log(1-H(x))) (이 식의 그래프도 밥그릇 모양)
   - W := W - α*(cost(W) 미분한 것)
-2. training data  
-  x_data = [[1,2],[2,3],[3,1].[4,3],[5,3],[6,2]]  // [x1,x2]  
-  y_data = [[0],[0],[0],[1],[1],[1]]  // 0: fail, 1: pass  
-  // placeholders for a tensor that will be always fed.  
-  // shape에 유의  
-  X = tf.placeholder(tf.float32, shape=[None,2])  // shape=[총 n개, x가 2개]  
-  Y = tf.placeholder(tf.float32, shape=[None,1])  // shape=[총 n개, y가 1개]  
+2. training data
+  ```python
+  x_data = [[1,2],[2,3],[3,1].[4,3],[5,3],[6,2]]  # [x1,x2]
+  y_data = [[0],[0],[0],[1],[1],[1]]  # 0: fail, 1: pass
+  # placeholders for a tensor that will be always fed
+  # shape에 유의
+  X = tf.placeholder(tf.float32, shape=[None,2])  # shape=[총 n개, x가 2개]
+  Y = tf.placeholder(tf.float32, shape=[None,1])  # shape=[총 n개, y가 1개]
+  ```
   - matrix multiplication할 때 W의 shape에 유의
   - H(X) = 1/(1+e^-WX) -> hypothesis = tf.sigmoid(tf.matmul(X,W)+b)
   - W := W - α*(cost(W) 미분한 것) -> train = tf.train.GradientDescentOptimizer(learning_rate=0.01).minimize(cost)
@@ -103,14 +107,16 @@
 3. train the model
   - 이전과 동일
   - *[전체 코드](https://github.com/hunkim/DeepLearningZeroToAll/blob/master/lab-05-01-logistic_regression.py)*
-4. Classifying diabetes  
-  // 0: diabetes x, 1: diabetes o  
-  xy = np.loadtxt('data-03-diabetes.csv', delimiter=',', dtype=np.float32)  
-  x_data = xy[:, 0:-1]  
-  y_data = xy[:, [-1]]  
-  // 뒷부분은 거의 공통적으로 사용됨  
-  // 주의할 점은 x가 총 8개이므로 placeholder, W에서의 shape  
-  // step이 진행될수록 cost가 점점 내려감  
+4. Classifying diabetes
+  ```python
+  # 0: diabetes x, 1: diabetes o
+  xy = np.loadtxt('data-03-diabetes.csv', delimiter=',', dtype=np.float32)
+  x_data = xy[:, 0:-1]
+  y_data = xy[:, [-1]]
+  # 뒷부분은 거의 공통적으로 사용됨
+  # 주의할 점은 x가 총 8개이므로 placeholder, W에서의 shape
+  # step이 진행될수록 cost가 점점 내려감
+  ```
 5. Exercise
   - CSV reading using tf.decode_csv
   - Try other classification data from [Kaggle](https://www.kaggle.com)
