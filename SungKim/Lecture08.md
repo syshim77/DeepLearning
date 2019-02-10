@@ -90,44 +90,54 @@
   print(t[0], t[1], t[-1])
   print(t[2:5], t[4:-1]) # slicing
   print(t[:2], t[3:])
-  ```  
-  result:  
-  array([0., 1., 2., 3., 4., 5., 6.])  
-  1  
-  (7,)  
-  0.0 1.0 6.0  
-  [2. 3. 4.] [4. 5.]  
-  [0. 1.] [3. 4. 5. 6.]  
+  ```
+  ```
+  result:
+  array([0., 1., 2., 3., 4., 5., 6.])
+  1
+  (7,)
+  0.0 1.0 6.0
+  [2. 3. 4.] [4. 5.]
+  [0. 1.] [3. 4. 5. 6.]
+  ```
 2. 2D Array
   ```python
   t = np.array([[1., 2., 3.], [4., 5., 6.], [7., 8., 9.], [10., 11., 12.]])
   pp.pprint(t)
   print(t.ndim) # rank
   print(t.shape)  # shape
-  ```  
-  result:  
-  array([[1., 2., 3.], [4., 5., 6.], [7., 8., 9.], [10., 11., 12.]])  
-  2  
-  (4,3)  
+  ```
+  ```
+  result:
+  array([[1., 2., 3.], [4., 5., 6.], [7., 8., 9.], [10., 11., 12.]])
+  2
+  (4,3)
+  ```
 3. Shape, Rank, **Axis**
   ```python
   t = tf.constant([1,2,3,4])  # rank=1
   tf.shape(t).eval()
-  ```  
-  result:  
-  array([4], dtype=int32)  
+  ```
+  ```
+  result:
+  array([4], dtype=int32)
+  ```
   ```python
   t = tf.constant([[1,2], [3,4]])  # rank=2(angle bracket(=[])의 개수)
   tf.shape(t).eval()
-  ```  
-  result:  
-  array([2,2], dtype=int32)  
+  ```
+  ```
+  result:
+  array([2,2], dtype=int32)
+  ```
   ```python
   t = tf.constant([[[[1,2,3,4], [5,6,7,8], [9,10,11,12]], [[13,14,15,16], [17,18,19,20], [21,22,23,24]]]])  # rank=4 axis 0부터 안쪽으로 갈수록 큰 값(마지막은 -1이라고도 함)
   tf.shape(t).eval()
-  ```  
-  result:  
-  array([1,2,3,4], dtype=int32)  
+  ```
+  ```
+  result:
+  array([1,2,3,4], dtype=int32)
+  ```
 4. Matmul vs Multiply
   ```python
   matrix1 = tf.constant([[1., 2.], [3., 4.]]) # rank=2, shape=[2,2]
@@ -144,141 +154,190 @@
   matrix1 = tf.constant([[1., 2.]])
   matrix2 = tf.constant(3.)
   (matrix1+matrix2).eval()
-  ```  
-  result:  
-  array([[4., 5.]], dtype=float32)  
+  ```
+  ```
+  result:
+  array([[4., 5.]], dtype=float32)
+  ```
   ```python
   matrix1 = tf.constant([[1., 2.]])
   matrix2 = tf.constant([3., 4.])
   (matrix1+matrix2).eval()
-  ```  
-  result:  
-  array([[4., 6.]], dtype=float32)  
+  ```
+  ```
+  result:
+  array([[4., 6.]], dtype=float32)
+  ```
   ```python
   matrix1 = tf.constant([[1., 2.]])
   matrix2 = tf.constant([[3.], [4.]])
   (matrix1+matrix2).eval()
-  ```  
-  result:  
-  array([[4., 5.], [5., 6.]], dtype=float32)  
+  ```
+  ```
+  result:
+  array([[4., 5.], [5., 6.]], dtype=float32)
+  ```
 6. Reduce mean
   ```python
   tf.reduce_mean([1,2], axis=0).eval()  # int인지 float인지 주의
-  ```  
-  result:  
-  1  
+  ```
+  ```
+  result:
+  1
+  ```
   ```python
   x = [[1., 2.],[3., 4.]]  # 보통 float
   tf.reduce_mean(x).eval()
-  ```  
-  result:  
-  2.5  
+  ```
+  ```
+  result:
+  2.5
+  ```
   ```python
   tf.reduce_mean(x, axis=0).eval()
-  ```  
-  result:  
-  array([[2., 3.], dtype=float32)  
+  ```
+  ```
+  result:
+  array([[2., 3.], dtype=float32)
+  ```
   ```python
   tf.reduce_mean(x, axis=1).eval)
-  ```  
-  result:  
-  array([1.5, 3.5], dtype=float32)  
+  ```
+  ```
+  result:
+  array([1.5, 3.5], dtype=float32)
+  ```
   ```python
   tf.reduce_mean(x, axis=-1).eval()
-  ```  
-  result:  
-  array([1.5, 3.5], dtype=float32)  
+  ```
+  ```
+  result:
+  array([1.5, 3.5], dtype=float32)
+  ```
 7. Reduce sum
   ```python
   x = [[1., 2.], [3., 4.]]
   tf.reduce_sum(x).eval()
-  ```  
-  result:  
-  10.0  
+  ```
+  ```
+  result:
+  10.0
+  ```
   ```python
   tf.reduce_sum(x, axis=0).eval()
-  ```  
-  result:  
-  array([4., 6.], dtype=float32)  
+  ```
+  ```
+  result:
+  array([4., 6.], dtype=float32)
+  ```
   ```python
   tf.reduce_sum(x, axis=-1).eval()
-  ```  
-  result:  
-  array([3., 7.], dtype=float32)  
+  ```
+  ```
+  result:
+  array([3., 7.], dtype=float32)
+  ```
   ```python
   tf.reduce_mean(tf.reduce_sum(x, axis=-1)).eval()
   ```
+  ```
+  result:
   5.0
+  ```
 8. Argmax
   - max 값이 있는 위치를 구하는 것
   ```python
   x = [[0,1,2], [2,1,0]]
   tf.argmax(x, axis=0).eval()
-  ```  
-  result:  
-  array([1,0,0])  
+  ```
+  ```
+  result:
+  array([1,0,0])
+  ```
   ```python
   tf.argmax(x, axis=1).eval()
-  ```  
-  result:  
-  array([2,0])  
+  ```
+  ```
+  result:
+  array([2,0])
+  ```
   ```python
   tf.argmax(x, axis=-1).eval()
-  ```  
-  result:  
-  array([2,0])  
+  ```
+  ```
+  result:
+  array([2,0])
+  ```
 9. **Reshape**
   ```python
   t = np.array([[[0,1,2], [3,4,5]], [[6,7,8], [9,10,11]]])
   t.shape
-  ```  
-  result:  
-  (2,2,3)  
+  ```
+  ```
+  result:
+  (2,2,3)
+  ```
   ```python
   tf.reshape(t, shape=[-1,3]).eval() # 안쪽 값은 거의 같게 두고 바깥쪽만 변경하여 큰 형태만 변하게 됨
-  ```  
-  result:  
-  array([[0,1,2], [3,4,5], [6,7,8], [9,10,11]])  
+  ```
+  ```
+  result:
+  array([[0,1,2], [3,4,5], [6,7,8], [9,10,11]])
+  ```
   ```python
   tf.reshape(t, shape=[-1,1,3]).eval()
-  ```  
-  result:  
-  array([[[0,1,2]], [[3,4,5]], [[6,7,8]], [[9,10,11]]])  
+  ```
+  ```
+  result:
+  array([[[0,1,2]], [[3,4,5]], [[6,7,8]], [[9,10,11]]])
+  ```
   - squeeze
   ```python
   tf.squeeze([[0], [1], [2]]).eval()
-  ```  
-  result:  
-  array([0,1,2], dtype=int32)  
+  ```
+  ```
+  result:
+  array([0,1,2], dtype=int32)
+  ```
   - expand
   ```python
   tf.expand_dims([0,1,2], 1).eval()
-  ```  
-  result:  
-  array([[0], [1], [2]], dtype=int32)  
+  ```
+  ```
+  result:
+  array([[0], [1], [2]], dtype=int32)
+  ```
 10. One hot
   ```python
   tf.one_hot([[0], [1], [2], [0]], depth=3).eval()  # rank 1개 자동적으로 expand
-  ```  
-  result:  
-  array([[[1., 0., 0.]], [[0., 1., 0.]], [[0., 0., 1.]], [[1., 0., 0.]]], dtype=float32)  
+  ```
+  ```
+  result:
+  array([[[1., 0., 0.]], [[0., 1., 0.]], [[0., 0., 1.]], [[1., 0., 0.]]], dtype=float32)
+  ```
   ```python
   t = tf.one_hot([[0], [1], [2], [0]], depth=3)
   tf.reshape(t,shape=[-1,3]).eval() #rank를 expand 시키고 싶지 않으면 reshape 하면 됨
-  ```  
-  result:  
-  array([[1., 0., 0.], [0., 1., 0.], [0., 0., 1.], [1., 0., 0.]], dtype=float32)  
+  ```
+  ```
+  result:
+  array([[1., 0., 0.], [0., 1., 0.], [0., 0., 1.], [1., 0., 0.]], dtype=float32)
+  ```
 11. Casting
   ```python
   tf.cast([1.8, 2.2, 3.3, 4.9], tf.int32).eval()
-  ```  
-  result:  
-  array([1,2,3,4], dtype=int32)  
+  ```
+  ```
+  result:
+  array([1,2,3,4], dtype=int32)
+  ```
   ```python
   tf.cast([True, False, 1==1, 0==1], tf.int32).eval()
-  ```  
-  result:  
-  array([1,0,1,0], dtype=int32)  
+  ```
+  ```
+  result:
+  array([1,0,1,0], dtype=int32)
+  ```
 12. Stack
   ```python
   x = [1,4]
@@ -287,40 +346,52 @@
 
   # pack along first dim.
   tf.stack([x,y,z]).eval()
-  ```  
-  result:  
-  array([[1,4], [2,5], [3,6]], dtype=int32)  
+  ```
+  ```
+  result:
+  array([[1,4], [2,5], [3,6]], dtype=int32)
+  ```
   ```python
   tf.stack([x,y,z], axis=1).eval()  # axis, stack relation 유의(axis=0,-1로도 바꿔보면서 어떤 연관성이 있는지 확인)
-  ```  
-  result:  
-  array([[1,2,3], [4,5,6]], dtype=int32)  
+  ```
+  ```
+  result:
+  array([[1,2,3], [4,5,6]], dtype=int32)
+  ```
 13. Ones and Zeros like
   ```python
   x = [[0,1,2], [2,1,0]]
   tf.ones_like(x).eval()
-  ```  
-  result:  
-  array([[1,1,1], [1,1,1]], dtype=int32)  
+  ```
+  ```
+  result:
+  array([[1,1,1], [1,1,1]], dtype=int32)
+  ```
   ```python
   tf.zeros_like(x).eval()
-  ```  
-  result:  
-  array([[0,0,0], [0,0,0]], dtype=int32)  
+  ```
+  ```
+  result:
+  array([[0,0,0], [0,0,0]], dtype=int32)
+  ```
 14. Zip
   ```python
   for x,y in zip([1,2,3], [4,5,6]):
     print(x,y)
-  ```  
-  result:  
-  1 4  
-  2 5  
-  3 6  
+  ```
+  ```
+  result:
+  1 4
+  2 5
+  3 6
+  ```
   ```python
   for x,y,z in zip([1,2,3], [4,5,6], [7,8,9]):
     print(x,y,z)
-  ```  
-  result:  
-  1 4 7  
-  2 5 8  
-  3 6 9  
+  ```
+  ```
+  result:
+  1 4 7
+  2 5 8
+  3 6 9
+  ```
