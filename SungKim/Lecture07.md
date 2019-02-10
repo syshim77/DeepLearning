@@ -3,7 +3,7 @@
 
 ###### Theory
 1. Gradient descent
-  ```{.python}
+  ```python
   # Minimize error using cross entropy
   # -α*(L(w1,w2) 미분한 것(= derivative))
   learning_rate = 0.001 # α = learning_rate, 지금까지는 임의의 값을 지정
@@ -79,7 +79,7 @@
   - 이전까지는 학습시킨 데이터로 확인했지만 지금부터는 아님
   - test set은 모델 입장에서 한번도 본 적이 없는 것
   - 학습이 완료된 시점에서 테스트
-  ```{.python}
+  ```python
   # training data
   x_data = [[1,2,1],[1,3,2],[1,3,4],[1,5,5],[1,7,5],[1,2,5],[1,6,6],[1,7,7]]
   y_data = [[0,0,1],[0,0,1],[0,0,1],[0,1,0],[0,1,0],[0,1,0],[1,0,0],[1,0,0]]
@@ -99,7 +99,7 @@
 3. [Non-normalized inputs](https://github.com/hunkim/DeepLearningZeroToAll/blob/master/lab-07-2-linear_regression_without_min_max.py)
   - inf, nan 등이 섞인 이상한 결과값이 나오게 됨
 4. Normalized inputs(min-max scale)
-  ```{.python}
+  ```python
   xy = MinMaxScaler(xy)
   print(xy)
   ```
@@ -107,14 +107,14 @@
   - 데이터의 형태가 이상하거나 데이터가 너무 들쭉날쭉하면 normalize 이용
 5. MNIST dataset
   - 28x28x1 image
-  ```{.python}
+  ```python
   # MNIST data image of shape 28 * 28 = 784
   X = tf.placeholder(tf.float32, [None, 784])
   # 0 - 9 digits recognition = 10 classes (one-hot encoder)
   Y = tf.placeholder(tf.float32, [None, nb_classes])
   ```
   - MNIST dataset using TensorFlow
-  ```{.python}
+  ```python
   from tensorflow.examples.tutorials.mnist import input_data
   # check out https://www.tensorflow.org/get_started/mnist/beginners
   # for more information about the mnist dataset
@@ -125,7 +125,7 @@
   print("Accuracy: ", accuracy.eval(session=sess, feed_dict={X: mnist.test.images, Y: mnist.test.labels}))
   ```
   - reading data and set variables
-  ```{.python}
+  ```python
   from tensorflow.examples.tutorials.mnist import input_data
   mnist = input_data.read_data_sets("MNIST_data/", one_hot=True)
 
@@ -138,7 +138,7 @@
   b = tf.Variable(tf.random_normal([nb_classes]))
   ```
   - softmax!
-  ```{.python}
+  ```python
   # Hypothesis (using softmax)
   hypothesis = tf.nn.softmax(tf.matmul(X,W)+b)
   cost = tf.reduce_mean(-tf.reduce_sum(Y*tf.log(hypothesis), axis=1))
@@ -151,7 +151,7 @@
 6. training [epoch/batch](http://stackoverflow.com/questions/4752626/epoch-vs-iteration-when-training-neural-networks)
   - epoch: 전체 dataset을 한 번 학습시킨 것
   - batch size: 한 번에 몇 개씩 학습시킬지
-  ```{.python}
+  ```python
   # parameters
   training_epochs = 15
   batch_size = 100
@@ -169,14 +169,14 @@
         avg_cost += c/total_batch
 
     print('Epoch: ', '%04d'%(epoch+1), 'cost= ', '{:.9f}'.format(avg_cost))
-    ```
+  ```
 7. [report results on test dataset](https://github.com/hunkim/DeepLearningZeroToAll/blob/master/lab-07-4-mnist_introduction.py)
-  ```{.python}
+  ```python
   # test the model using test sets
   print("Accuracy: ", accuracy_eval(session=sess, feed_dict={X: mnist.test.images, Y: mnist.test.labels}))  # accuracy_eval() = sess.run()
   ```
 8. sample image show and prediction
-  ```{.python}
+  ```python
   import matplotlib.pyplot as plt
   import random
   # get one and predict
