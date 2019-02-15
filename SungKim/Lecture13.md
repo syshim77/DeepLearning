@@ -22,7 +22,9 @@
     + cloud watch
       * stop when CPU utilization ≤ 0.3
     + shutdown after training
-      * $ screen
-      * $ sudo -i
-      * # python train.py; shutdown -h now
+    ```
+    $ screen
+    $ sudo -i
+    # python train.py; shutdown -h now
+    ```
 6. For more Information of [this Lecture](http://hunkim.github.io/ml/)
